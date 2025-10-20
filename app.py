@@ -16,7 +16,7 @@ class MaskDetector:
         """Initialize the mask detector with heavy optimizations"""
         print("Loading model...")
         
-        # Optimize TensorFlow
+        # Optimize TensorFlowcls
         tf.config.optimizer.set_jit(True)
         tf.config.threading.set_inter_op_parallelism_threads(2)
         tf.config.threading.set_intra_op_parallelism_threads(2)
@@ -26,6 +26,8 @@ class MaskDetector:
         
         # Warmup the model with dummy data
         print("Warming up model...")
+        # dummy_face = np.zeros((224, 224, 3), dtype=np.uint8)
+        # dummy_input = self.preprocess_face(dummy_face)
         dummy_input = np.zeros((1, 224, 224, 3), dtype=np.float32)
         for _ in range(3):
             _ = self.model.predict(dummy_input, verbose=0)
@@ -112,6 +114,7 @@ class MaskDetector:
     def preprocess_face(self, face_image):
         """Optimized preprocessing"""
         # Use cv2.resize with INTER_AREA for downscaling (faster)
+        # face_resized = cv2.resize(face_image, (256, 256), interpolation=cv2.INTER_AREA)
         face_resized = cv2.resize(face_image, (224, 224), interpolation=cv2.INTER_AREA)
         # Normalize efficiently
         face_normalized = face_resized.astype('float32') * (1.0 / 255.0)
