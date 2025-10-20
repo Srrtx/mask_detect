@@ -49,3 +49,6 @@ The model predicts three classes:
 1. **Camera not working**: Make sure your camera is not being used by another application
 2. **Model not found**: Ensure `face_mask.h5` is in the same directory as the script
 3. **Performance issues**: Try reducing the camera resolution or frame rate
+
+##Dataset
+https://www.kaggle.com/datasets/shiekhburhan/face-mask-dataset
