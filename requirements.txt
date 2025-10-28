@@ -1,10 +1,22 @@
 opencv-python==4.8.1.78
-tensorflow==2.16.1
+# Use a TensorFlow build known to work with Python 3.10 in many environments
+tensorflow==2.13.0
+# mediapipe releases can be sensitive to numpy/tensorflow; pin a common stable patch
+# Use an available mediapipe release from PyPI
 mediapipe==0.10.21
-numpy==1.26.4
+# Keep numpy <2 to avoid compatibility issues with many compiled extensions
+numpy>=1.23,<2.0
 Pillow==10.0.1
 ipywidgets==8.1.1
 matplotlib==3.7.2
 pandas==2.3.3
+# Flask 3 can be used, but if you run into issues switch to 2.3.x. Keep as-is unless you need to downgrade.
 flask==3.1.2
-cv2==0.0.1
+# Removed invalid / typo packages: 'cv2' and 'pytouch' were not valid pip packages.
+# torch is intentionally omitted from automatic pinning because it commonly causes
+# dependency conflicts (notably `typing-extensions` range clashes with TensorFlow).
+# Install PyTorch separately using the official selector so you can pick the
+# correct build for your platform (CPU or CUDA) and avoid resolver errors.
+# Example (CPU-only):
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+# Or visit https://pytorch.org/get-started/locally/ for the recommended command.
